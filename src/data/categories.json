@@ -1,0 +1,267 @@
+[
+  {
+    "id": 1,
+    "name": "창업・비즈니스",
+    "parentId": null,
+    "children": [
+      {
+        "id": 11,
+        "name": "스타트업 창업",
+        "parentId": 1
+      },
+      {
+        "id": 12,
+        "name": "사업계획서 작성",
+        "parentId": 1
+      },
+      {
+        "id": 13,
+        "name": "프랜차이즈 운영",
+        "parentId": 1
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "투자・재테크",
+    "parentId": null,
+    "children": [
+      {
+        "id": 14,
+        "name": "주식투자",
+        "parentId": 2
+      },
+      {
+        "id": 15,
+        "name": "부동산",
+        "parentId": 2
+      },
+      {
+        "id": 16,
+        "name": "암호화폐",
+        "parentId": 2
+      },
+      {
+        "id": 17,
+        "name": "연금설계",
+        "parentId": 2
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "디지털 마케팅",
+    "parentId": null,
+    "children": [
+      {
+        "id": 18,
+        "name": "SNS 마케팅",
+        "parentId": 3
+      },
+      {
+        "id": 19,
+        "name": "블로그 운영",
+        "parentId": 3
+      },
+      {
+        "id": 20,
+        "name": "쇼핑몰 창업",
+        "parentId": 3
+      },
+      {
+        "id": 21,
+        "name": "유튜브 운영",
+        "parentId": 3
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "개발・프로그래밍",
+    "parentId": null,
+    "children": [
+      {
+        "id": 22,
+        "name": "웹개발",
+        "parentId": 4
+      },
+      {
+        "id": 23,
+        "name": "앱개발",
+        "parentId": 4
+      },
+      {
+        "id": 24,
+        "name": "데이터분석",
+        "parentId": 4
+      },
+      {
+        "id": 25,
+        "name": "AI 활용",
+        "parentId": 4
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "디자인・창작",
+    "parentId": null,
+    "children": [
+      {
+        "id": 26,
+        "name": "그래픽디자인",
+        "parentId": 5
+      },
+      {
+        "id": 27,
+        "name": "UX/UI",
+        "parentId": 5
+      },
+      {
+        "id": 28,
+        "name": "일러스트",
+        "parentId": 5
+      },
+      {
+        "id": 29,
+        "name": "브랜딩",
+        "parentId": 5
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "외국어",
+    "parentId": null,
+    "children": [
+      {
+        "id": 30,
+        "name": "영어회화",
+        "parentId": 6
+      },
+      {
+        "id": 31,
+        "name": "중국어",
+        "parentId": 6
+      },
+      {
+        "id": 32,
+        "name": "일본어",
+        "parentId": 6
+      },
+      {
+        "id": 33,
+        "name": "토익/토플",
+        "parentId": 6
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "취미・라이프",
+    "parentId": null,
+    "children": [
+      {
+        "id": 34,
+        "name": "캘리그라피",
+        "parentId": 7
+      },
+      {
+        "id": 35,
+        "name": "도예",
+        "parentId": 7
+      },
+      {
+        "id": 36,
+        "name": "가드닝",
+        "parentId": 7
+      },
+      {
+        "id": 37,
+        "name": "반려동물 관리",
+        "parentId": 7
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "자기계발・생산성",
+    "parentId": null,
+    "children": [
+      {
+        "id": 38,
+        "name": "독서법",
+        "parentId": 8
+      },
+      {
+        "id": 39,
+        "name": "시간관리",
+        "parentId": 8
+      },
+      {
+        "id": 40,
+        "name": "프레젠테이션",
+        "parentId": 8
+      },
+      {
+        "id": 41,
+        "name": "인간관계",
+        "parentId": 8
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "사진・영상",
+    "parentId": null,
+    "children": [
+      {
+        "id": 42,
+        "name": "사진촬영",
+        "parentId": 9
+      },
+      {
+        "id": 43,
+        "name": "영상편집",
+        "parentId": 9
+      },
+      {
+        "id": 44,
+        "name": "유튜브 제작",
+        "parentId": 9
+      },
+      {
+        "id": 45,
+        "name": "드론 촬영",
+        "parentId": 9
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "요리・베이킹",
+    "parentId": null,
+    "children": [
+      {
+        "id": 46,
+        "name": "홈베이킹",
+        "parentId": 10
+      },
+      {
+        "id": 47,
+        "name": "바리스타",
+        "parentId": 10
+      },
+      {
+        "id": 48,
+        "name": "와인/스피릿",
+        "parentId": 10
+      },
+      {
+        "id": 49,
+        "name": "건강식",
+        "parentId": 10
+      }
+    ]
+  }
+]
