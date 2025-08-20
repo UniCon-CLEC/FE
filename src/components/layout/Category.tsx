@@ -54,7 +54,7 @@ export const Category = ({ isOpened }: { isOpened: boolean }) => {
     return (
         <AnimatePresence>
             { isOpened && 
-            <motion.div key={"category"} className="w-screen absolute top-15 z-100"
+            <motion.div key={"category"} className="w-screen absolute fixed top-14 z-100"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}

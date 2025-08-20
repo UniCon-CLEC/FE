@@ -4,16 +4,27 @@ import Image from "next/image"
 import { motion } from "motion/react"
 
 import { Account } from "../ui/core/Account"
-import { useState } from "react";
+import { PropsWithChildren, useState } from "react";
 import { Category } from "./Category";
 import Link from "next/link";
+
+const HeaderItem = ({ children, onClick }: PropsWithChildren<{ onClick?: () => void }>) => {
+    return (
+        <motion.div className="font-bold text-center cursor-pointer grow-1"
+            whileHover={{ color: "var(--main)" }}
+            transition={{ duration: 0.1 }}
+            onClick={onClick}>
+            {children}
+        </motion.div>
+    )
+}
 
 export const Header = () => {
     const [isCategoryOpened, setIsCategoryOpened] = useState(false);
 
     return (
         <>
-            <header className="w-screen my-3 fixed top-0">
+            <header className="w-screen py-3 fixed top-0 bg-white z-100 shadow-md">
                 <div className="w-(--page-width) mx-auto flex items-center">
                     <div className="grow-2">
                         <Link href={"/"}>
@@ -26,29 +37,18 @@ export const Header = () => {
                         </div>
                         <input className="focus:outline-none bg-gray-100 rounded-full pl-7 pr-2 text-sm h-7 w-[90%] max-w-xs" placeholder="검색어 입력"/>
                     </div>
-                    <motion.div className="font-bold text-center cursor-pointer grow-1"
-                        whileHover={{ color: "var(--main)" }}
-                        transition={{ duration: 0.1 }}>
-                        <Link href={"/funding"}>
-                            펀딩
-                        </Link>
-                    </motion.div>
-                    <motion.div className="font-bold text-center cursor-pointer grow-1"
-                        whileHover={{ color: "var(--main)" }}
-                        transition={{ duration: 0.1 }}>
-                        크루
-                    </motion.div>
-                    <motion.div className="font-bold text-center cursor-pointer grow-1"
-                        whileHover={{ color: "var(--main)" }}
-                        transition={{ duration: 0.1 }}>
-                        트랙
-                    </motion.div>
-                    <motion.div className="font-bold text-center cursor-pointer grow-1"
-                        whileHover={{ color: "var(--main)" }}
-                        transition={{ duration: 0.1 }}
-                        onClick={() => setIsCategoryOpened(!isCategoryOpened)}>
+                    <HeaderItem>
+                        <Link href={"/funding"}>펀딩</Link>
+                    </HeaderItem>
+                    <HeaderItem>
+                        <Link href={"/crew"}>크루</Link>
+                    </HeaderItem>
+                    <HeaderItem>
+                        <Link href={"/track"}>트랙</Link>
+                    </HeaderItem>
+                    <HeaderItem onClick={() => setIsCategoryOpened(!isCategoryOpened)}>
                         카테고리
-                    </motion.div>
+                    </HeaderItem>
                     <Account className="grow-1"/>
                 </div>
             </header>

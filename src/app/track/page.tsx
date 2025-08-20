@@ -4,7 +4,7 @@ import { Header } from "@/components/layout/Header";
 import { Navigation } from "@/components/layout/Navigation";
 import { NavSection } from "@/components/ui/core/NavSection";
 import { LargeItemList } from "@/components/ui/items/BaseItem";
-import { FundingItem, FundingLargeItem } from "@/components/ui/items/FundingItem";
+import { TrackLargeItem } from "@/components/ui/items/TrackItem";
 import { useState } from "react";
 
 const navData = [
@@ -18,28 +18,16 @@ const navData = [
     }
 ]
 
-export default function Funding() {
+export default function Track() {
     const [activeSection, setActiveSection] = useState<string>("")
-
-    const makeOngoingFundingItems = () => {
-        const result = []
-        for (let i = 0; i < 20; i++) {
-            result.push(
-                <FundingItem key={i}/>
-            )
-        }
-        return result
-    }
-
+    
     return (
         <>
             <Header/>
             <main className="w-(--page-width) mx-auto">
-                <LargeItemList title="인기 펀딩" ItemComponent={FundingLargeItem} lectures={[{title:'펀딩 세계에서 살아남기', lecturer:'클렉 스튜디오',description:'test'},{title:'제목2', lecturer:'22',description:'test2'}]}></LargeItemList>
+                <LargeItemList title="인기 트랙" ItemComponent={TrackLargeItem} lectures={[{title:'ㅁㄴㅇㄹ', lecturer:'클렉 스튜디오',description:'test'},{title:'제목2', lecturer:'22',description:'test2'}]}></LargeItemList>
                 <NavSection data={navData[0]} set={setActiveSection}>
-                    <div className="grid grid-cols-[repeat(auto-fill,minmax(170px,1fr))] gap-x-10 gap-y-15 px-2">
-                        {makeOngoingFundingItems()}
-                    </div>
+
                 </NavSection>
                 <NavSection data={navData[1]} set={setActiveSection}>
 
@@ -47,5 +35,5 @@ export default function Funding() {
             </main>
             <Navigation navTargets={navData} activeTargetId={activeSection}/>
         </>
-    );
+    )
 }

@@ -13,7 +13,7 @@
     --category-bg: #e2e2e2;
 
     /* sizes */
-    --page-width: 70vw;
+    --page-width: 65vw;
 }
 
 .draggable {
@@ -32,6 +32,9 @@ body {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+
+    overflow-x: hidden;
+    scroll-behavior: smooth;
 }
 
 progress {
@@ -45,4 +48,22 @@ progress::-webkit-progress-bar {
 
 progress::-webkit-progress-value {
     background-color: var(--main);
+}
+
+::-webkit-scrollbar {
+    background: #e3e3e3;
+    width: 7px;
+    height: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #696969;
+    border-radius: 10px;
+}
+
+.hide-scrollbar {
+    scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
 }

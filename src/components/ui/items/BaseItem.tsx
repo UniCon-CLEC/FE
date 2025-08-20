@@ -1,10 +1,12 @@
 "use client";
 
-import { JSX, useState } from "react";
+import { useState } from "react";
 import { ImgBox } from "../core/ImgBox";
 import Image from "next/image";
+import { motion } from "motion/react";
 
-type LectureInfo = { title: string, lecturer: string, description?: string }
+export type LectureInfo = { title: string, lecturer: string, description?: string }
+export type ExtendedLectureInfo = LectureInfo & Record<string, any>
 
 export const BaseItem = ({ lecturer, title }: LectureInfo) => {
     const [isScraped, setIsScraped] = useState(false)
@@ -20,21 +22,25 @@ export const BaseItem = ({ lecturer, title }: LectureInfo) => {
             <div className="text-sm text-center font-bold mt-1">
                 {title}
             </div>
-            <Image src={`/icons/heart_${isScraped ? "filled" : "empty"}.png`} alt="" width={18} height={18} className="absolute top-2 right-2 cursor-pointer"
+            <Image src={`/icons/heart_${isScraped ? "filled" : "empty"}.png`} alt="" width={22} height={22} className="absolute top-2 right-2 cursor-pointer"
                 onClick={() => setIsScraped(!isScraped)}></Image>
         </>
     )
 }
 
-export type LargeItemProps = { lecture: LectureInfo }
-export const BaseLargeItem = ({ lecture } : LargeItemProps) => {
+export type ItemProps = { lecture: ExtendedLectureInfo, className?: string, ref?: React.Ref<any> }
+export const BaseLargeItem = ({ lecture } : ItemProps) => {
     return (
         <>
-            <ImgBox className="shadow-md aspect-2/1"/>
-            <div className="mt-5 ml-2">
-                <div className="font-bold text-xl">{lecture.title}</div>
-                <div className="text-(--subtext) text-lg mt-1">{lecture.lecturer}</div>
-                <p className="text-(--subtext) mt-2">
+            <div className="flex w-full">
+                <div className="w-[60%]">
+                    <ImgBox className="shadow-md aspect-2/1"/>
+                    <div className="mt-5 ml-2">
+                        <div className="font-bold text-xl">{lecture.title}</div>
+                        <div className="text-(--subtext) text-lg mt-1">{lecture.lecturer}</div>
+                    </div>
+                </div>
+                <p className="text-(--subtext) mt-2 ml-8 whitespace-pre w-[40%]">
                     {lecture.description}
                 </p>
             </div>
@@ -42,7 +48,7 @@ export const BaseLargeItem = ({ lecture } : LargeItemProps) => {
     )
 }
 
-export const LargeItemList = ({ title, lectures, ItemComponent }: { title: string, lectures: LectureInfo[], ItemComponent: React.ComponentType<LargeItemProps> }) => {
+export const LargeItemList = ({ title, lectures, ItemComponent }: { title: string, lectures: ExtendedLectureInfo[], ItemComponent: React.ComponentType<ItemProps> }) => {
     const [index, setIndex] = useState(0);
 
     const next = () => {
@@ -54,16 +60,18 @@ export const LargeItemList = ({ title, lectures, ItemComponent }: { title: strin
     }
 
     return (
-        <div className="ml-10">
+        <motion.div className="w-full"
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.1 }}>
             <div className="flex items-center mt-25 mb-3">
                 <span className="rounded-full bg-(--main) w-3 h-3 ml-2 mr-3"/>
                 <h2 className="font-bold text-2xl">{title}</h2>
             </div>
             <div className="relative">
-                <div className="w-[60%]">
+                <div className="cursor-pointer">
                     <ItemComponent lecture={lectures[index]}/>
                 </div>
-                <div className="absolute bottom-1 right-[40%] text-sm flex items-center">
+                <div className="absolute bottom-2 right-[40%] mr-3 text-sm flex items-center">
                     <div>
                         <Image src="/icons/left.png" onClick={prev} alt="left" width={14} height={14} className="cursor-pointer"/>
                     </div>
@@ -80,6 +88,6 @@ export const LargeItemList = ({ title, lectures, ItemComponent }: { title: strin
                     </div>
                 </div>
             </div>
-        </div>
+        </motion.div>
     )
 }
