@@ -11,9 +11,11 @@
     --subtext: #767676;
     --progress-bg: #17171b80;
     --category-bg: #e2e2e2;
+    --header-border: #a1a1a1;
 
     /* sizes */
     --page-width: 65vw;
+    --profile-width: 55vw;
 }
 
 .draggable {

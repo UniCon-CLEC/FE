@@ -1,21 +1,23 @@
 "use client";
 
 import Image from "next/image"
-import { motion } from "motion/react"
+import { AnimatePresence, motion } from "motion/react"
 
 import { Account } from "../ui/core/Account"
 import { PropsWithChildren, useState } from "react";
-import { Category } from "./Category";
+import { CategoryToggle } from "./Category";
 import Link from "next/link";
 
 const HeaderItem = ({ children, onClick }: PropsWithChildren<{ onClick?: () => void }>) => {
     return (
-        <motion.div className="font-bold text-center cursor-pointer grow-1"
-            whileHover={{ color: "var(--main)" }}
-            transition={{ duration: 0.1 }}
-            onClick={onClick}>
-            {children}
-        </motion.div>
+        <div className="grow-1 relative">
+            <motion.div className="font-bold text-center cursor-pointer"
+                whileHover={{ color: "var(--main)" }}
+                transition={{ duration: 0.1 }}
+                onClick={onClick}>
+                {children}
+            </motion.div>
+        </div>
     )
 }
 
@@ -52,7 +54,7 @@ export const Header = () => {
                     <Account className="grow-1"/>
                 </div>
             </header>
-            <Category isOpened={isCategoryOpened}/>
+            <CategoryToggle isOpened={isCategoryOpened}/>
         </>
     )
 }

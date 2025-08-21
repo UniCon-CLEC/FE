@@ -1,24 +1,24 @@
 "use client";
 
+import { CategoryInfo } from "@/data/categories";
 import categories from "@/data/categories.json"
-import { JSX, useState } from "react"
 import { AnimatePresence, motion } from "motion/react"
 import Image from "next/image";
+import Link from "next/link";
 
-const SubCategory = ({ parent }: { parent: any }) => {
-
+const SubCategoryToggle = ({ parent }: { parent: CategoryInfo }) => {
     const makeChildren = () => {
-        const result: JSX.Element[] = []
-        parent.children.forEach((child: any) => {
-            result.push(
+        return parent.children?.map((child: any) => {
+            return (
                 <motion.div key={child.id} className="text-sm mt-1 cursor-pointer"
                     whileHover={{ color: "var(--main)" }}
                     transition={{ duration: 0.1 }}>
-                    {child.name}
+                    <Link href={`/track/${child.id}`}>
+                        {child.name}
+                    </Link>
                 </motion.div>
             )
         })
-        return result
     }
 
     return (
@@ -30,7 +30,9 @@ const SubCategory = ({ parent }: { parent: any }) => {
                 <motion.div className="text-lg font-bold mb-1 cursor-pointer"
                     whileHover={{ color: "var(--main)" }}
                     transition={{ duration: 0.1 }}>
-                    {parent.name}
+                    <Link href={`/track/${parent.id}`}>
+                        {parent.name}
+                    </Link>
                 </motion.div>
                 <div>
                     {makeChildren()}
@@ -40,15 +42,13 @@ const SubCategory = ({ parent }: { parent: any }) => {
     )
 }
 
-export const Category = ({ isOpened }: { isOpened: boolean }) => {
+export const CategoryToggle = ({ isOpened }: { isOpened: boolean }) => {
     const makeCategories = () => {
-        const result: JSX.Element[] = []
-        categories.forEach((category) => {
-            result.push(
-                <SubCategory key={category.id} parent={category}/>
+        return categories.map((category) => {
+            return (
+                <SubCategoryToggle key={category.id} parent={category}/>
             )
         })
-        return result
     }
 
     return (
@@ -65,5 +65,32 @@ export const Category = ({ isOpened }: { isOpened: boolean }) => {
             </motion.div>
             }
         </AnimatePresence>
+    )
+}
+
+export const CategoryList = () => {
+    const makeItems = () => {
+        return categories.map(({ id, name }, index) => {
+            return (
+                <motion.div key={id} className="text-sm font-bold rounded-sm w-41 flex items-center bg-(--category-bg) py-2 px-3 gap-x-3 cursor-pointer"
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ duration: 0.1 }}>
+                    <div>
+                        <Image src={`/categories/${id}.png`} width={24} height={24} alt=""/>
+                    </div>
+                    <div>
+                        <Link href={`/track/${id}`}>
+                            {name}
+                        </Link>
+                    </div>
+                </motion.div>
+            )
+        })
+    }
+
+    return (
+        <div className="grid w-full grid-cols-[repeat(auto-fill,minmax(164px,1fr))] gap-x-3 gap-y-6 mt-20 mb-10">
+            {makeItems()}
+        </div>
     )
 }

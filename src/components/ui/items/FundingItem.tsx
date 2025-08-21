@@ -1,21 +1,33 @@
 "use client";
 
 import { BaseItem, BaseLargeItem, ItemProps } from "./BaseItem";
-import { motion } from "motion/react";
 
 export const FundingItem = () => {
     // fetch
 
     return (
-        <motion.div className="h-fit relative cursor-pointer"
-            whileHover={{ scale: 1.1 }}>
+        <div className="h-fit relative cursor-pointer">
             <BaseItem lecturer="강사명" title="강의 제목"/>
             <div className="flex justify-between mt-3">
                 <span className="text-xs text-(--subtext) pl-1">목표 1,000,000원</span>
                 <span className="text-xs text-(--main) font-bold pr-1">12%</span>
             </div>
             <progress value={12} max={100} className="block mt-1 w-full"/>
-        </motion.div>
+        </div>
+    )
+}
+
+export const FundingSmallItem = () => {
+    // fetch
+
+    return (
+        <div className="h-fit relative cursor-pointer">
+            <BaseItem lecturer="강사명" title="강의 제목" noScrap/>
+            <div className="mt-1 text-xs text-(--main) font-bold pr-1 text-right">
+                12% 진행됨
+            </div>
+            <progress value={12} max={100} className="block w-full"/>
+        </div>
     )
 }
 

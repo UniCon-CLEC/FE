@@ -17,6 +17,16 @@ export const TrackItem = ({ className, ref }: ItemProps) => {
     )
 }
 
+export const TrackSmallItem = ({ className, ref }: ItemProps) => {
+    // fetch
+
+    return (
+        <div className={`h-fit relative ${className}`} ref={ref}>
+            <BaseItem lecturer="강사명" title="강의제목" noScrap/>
+        </div>
+    )
+}
+
 export const TrackLargeItem = ({ lecture }: ItemProps) => {
     return (<div>
         <BaseLargeItem lecture={lecture}/>

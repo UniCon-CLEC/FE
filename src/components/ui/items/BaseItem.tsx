@@ -3,12 +3,12 @@
 import { useState } from "react";
 import { ImgBox } from "../core/ImgBox";
 import Image from "next/image";
-import { motion } from "motion/react";
+import { motion, useAnimate } from "motion/react";
 
 export type LectureInfo = { title: string, lecturer: string, description?: string }
 export type ExtendedLectureInfo = LectureInfo & Record<string, any>
 
-export const BaseItem = ({ lecturer, title }: LectureInfo) => {
+export const BaseItem = ({ lecturer, title, noScrap }: LectureInfo & { noScrap?: boolean }) => {
     const [isScraped, setIsScraped] = useState(false)
 
     // fetch
@@ -22,9 +22,30 @@ export const BaseItem = ({ lecturer, title }: LectureInfo) => {
             <div className="text-sm text-center font-bold mt-1">
                 {title}
             </div>
+            { !noScrap &&
             <Image src={`/icons/heart_${isScraped ? "filled" : "empty"}.png`} alt="" width={22} height={22} className="absolute top-2 right-2 cursor-pointer"
                 onClick={() => setIsScraped(!isScraped)}></Image>
+            }
         </>
+    )
+}
+
+export const ItemGridView = ({ lectures, ItemComponent, small }: { lectures: ExtendedLectureInfo[], ItemComponent: React.ComponentType<ItemProps>, small: boolean }) => {
+    const makeItems = () => {
+        return lectures.map((info, index) => {
+            return (
+                <motion.div key={index} className="cursor-pointer"
+                    whileHover={{ scale: 1.1 }}>
+                    <ItemComponent lecture={info}/>
+                </motion.div>
+            )
+        })
+    }
+    
+    return (
+        <div className={"grid " + (small ? "gap-x-4 gap-y-6 grid-cols-[repeat(auto-fill,minmax(120px,1fr))]" : "px-2 gap-x-10 gap-y-15 grid-cols-[repeat(auto-fill,minmax(170px,1fr))]")}>
+            {makeItems()}
+        </div>
     )
 }
 
@@ -48,15 +69,47 @@ export const BaseLargeItem = ({ lecture } : ItemProps) => {
     )
 }
 
+const transitionDuration = 0.25
 export const LargeItemList = ({ title, lectures, ItemComponent }: { title: string, lectures: ExtendedLectureInfo[], ItemComponent: React.ComponentType<ItemProps> }) => {
     const [index, setIndex] = useState(0);
+    const [scope, animate] = useAnimate()
 
     const next = () => {
-        setIndex((prevIndex) => (prevIndex + 1) % lectures.length);
+        animate(scope.current, {
+            opacity: 0,
+            y: 20
+        }, {
+            duration: transitionDuration,
+            ease: "circIn"
+        }).then(() => {
+            setIndex((prevIndex) => (prevIndex + 1) % lectures.length)
+            return animate(scope.current, {
+                opacity: 1,
+                y: 0
+            }, {
+                duration: transitionDuration,
+                ease: "circOut"
+            })
+        })
     }
 
     const prev = () => {
-        setIndex((prevIndex) => (prevIndex - 1 + lectures.length) % lectures.length);
+        animate(scope.current, {
+            opacity: 0,
+            y: 20
+        }, {
+            duration: transitionDuration,
+            ease: "circIn"
+        }).then(() => {
+            setIndex((prevIndex) => (prevIndex - 1 + lectures.length) % lectures.length)
+            return animate(scope.current, {
+                opacity: 1,
+                y: 0
+            }, {
+                duration: transitionDuration,
+                ease: "circOut"
+            })
+        })
     }
 
     return (
@@ -67,11 +120,11 @@ export const LargeItemList = ({ title, lectures, ItemComponent }: { title: strin
                 <span className="rounded-full bg-(--main) w-3 h-3 ml-2 mr-3"/>
                 <h2 className="font-bold text-2xl">{title}</h2>
             </div>
-            <div className="relative">
+            <div className="relative" ref={scope}>
                 <div className="cursor-pointer">
                     <ItemComponent lecture={lectures[index]}/>
                 </div>
-                <div className="absolute bottom-2 right-[40%] mr-3 text-sm flex items-center">
+                <div className="absolute bottom-3 right-[40%] mr-3 text-sm flex items-center">
                     <div>
                         <Image src="/icons/left.png" onClick={prev} alt="left" width={14} height={14} className="cursor-pointer"/>
                     </div>

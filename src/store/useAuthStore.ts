@@ -30,13 +30,18 @@ export interface AuthState {
 }
 
 export interface AuthStore {
-    isLoggedIn: boolean,
     user: AuthState | null,
     setUser: (user: AuthState) => void
 }
 
 export const useAuthStore = create<AuthStore>()((set) => ({
-    isLoggedIn: false,
-    user: null,
-    setUser: (user) => set({ user, isLoggedIn: true }),
+    // user: null,
+    user: {
+        id: "testemail@gmail.com",
+        name: "이름",
+        profileImageUrl: "ddd",
+        tags: ["aa", "bb"],
+        enrolledCourses: []
+    },
+    setUser: (user) => set({ user }),
 }))

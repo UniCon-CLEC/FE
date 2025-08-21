@@ -5,12 +5,12 @@ import { motion } from "motion/react";
 import Image from "next/image";
 
 type NavigationProps = { 
-    navTargets: { id: string, content: string }[],
+    navTargets: { id: string, title: string }[],
     activeTargetId: string
 }
 export const Navigation = ({ navTargets, activeTargetId } : NavigationProps) => {
 
-    const makeNavItems = () => navTargets.map(({ id, content }, index) => {
+    const makeNavItems = () => navTargets.map(({ id, title }, index) => {
         const handleClick = () => {
             document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" })
         }
@@ -21,7 +21,7 @@ export const Navigation = ({ navTargets, activeTargetId } : NavigationProps) => 
                 <motion.div className={`cursor-pointer ${flag ? "font-bold" : ""}`}
                     whileHover={{ color: "var(--main)" }}
                     transition={{ duration: 0.1 }} onClick={handleClick}>
-                    {content}
+                    {title}
                 </motion.div>
                 { flag && <Image src={"/icons/selected.png"} height={10} width={10} alt="" className="absolute -right-6 top-1.5"/> }
             </li>
