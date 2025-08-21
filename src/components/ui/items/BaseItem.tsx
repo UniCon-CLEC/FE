@@ -30,7 +30,7 @@ export const BaseItem = ({ lecturer, title, noScrap }: LectureInfo & { noScrap?:
     )
 }
 
-export const ItemGridView = ({ lectures, ItemComponent, small }: { lectures: ExtendedLectureInfo[], ItemComponent: React.ComponentType<ItemProps>, small: boolean }) => {
+export const ItemGridView = ({ lectures, ItemComponent, small }: { lectures: ExtendedLectureInfo[], ItemComponent: React.ComponentType<ItemProps>, small?: boolean }) => {
     const makeItems = () => {
         return lectures.map((info, index) => {
             return (
