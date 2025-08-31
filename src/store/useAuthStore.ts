@@ -5,22 +5,28 @@ import { devtools } from "zustand/middleware";
 export interface InstructorData {
     id: string,
     name: string,
-    image: string,
-    schedule: string,
-    information: string
+    image: string | null,
+    schedule: string | null,
+    information: string | null
 }
 
 export interface CourseData {
     courseId: string,
     title: string,
     courseStatus: "FUNDING" | "ACTIVE" | "COMPLETED" | "CANCELED",
-    coverImageUrl: string,
     instructor: InstructorData,
     enrollmentStatus: "PLEDGED" | "PAID" | "PAYMENT_FAILED" | "CANCELED",
+    introduction: CourseIntroductionData | null; 
     fundingProgress: number,
     fundingStartDate: string,
     fundingEndDate: string,
     courseStartDate: string
+}
+
+export interface CourseIntroductionData {
+  coverImageUrl?: string;
+  description?: string;
+  scheduleDetails?: string;
 }
 
 export interface AuthState {
