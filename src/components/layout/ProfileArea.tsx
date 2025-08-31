@@ -16,7 +16,7 @@ export const ProfileArea = () => {
                     {user.name}
                 </div>
                 <div className="text-sm text-(--subtext) w-fit mt-1">
-                    {user.id}
+                    {user.email}
                 </div>
             </div>
         )

@@ -25,6 +25,7 @@ export interface CourseData {
 
 export interface AuthState {
     id: string,
+    email: string,
     name: string,
     profileImageUrl: string,
     tags: string[],
