@@ -6,23 +6,29 @@ const API_URL = process.env.NEXT_PUBLIC_API_BASE_URL
 
 if (!API_URL) throw new Error("No API URL")
 
-export const request = async (endpoint: string, method: string = "GET"): Promise<Response> => {
-    const session = useAuthStore.getState().session
+export const request = async (endpoint: string, method: string = "GET", withToken: boolean = false): Promise<Response> => {
+    let response: Response
 
-    if (!session) {
-        throw new Error('Failed to get session')
-    }
+    if (withToken) {
+        const session = useAuthStore.getState().session
 
-    const token = session.access_token
-
-    const response = await fetch(`${API_URL}${endpoint}`, {
-        method,
-        headers: {
-            Authorization: `Bearer ${token}`
+        if (!session) {
+            throw new Error('Failed to get session')
         }
-    })
 
-    console.log('request')
+        const token = session.access_token
+
+        response = await fetch(`${API_URL}${endpoint}`, {
+            method,
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+    } else {
+        response = await fetch(`${API_URL}${endpoint}`, {
+            method,
+        })
+    }
 
     return response
 }

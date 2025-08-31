@@ -12,7 +12,7 @@ export const login = async (id: string, pw: string): Promise<boolean> => {
     if (error) {
         return false
     } else {
-        const data = await (await request("/me")).json()
+        const data = await (await request("/me", "GET", true)).json()
     
         console.log('setuser')
         setUser(data)
