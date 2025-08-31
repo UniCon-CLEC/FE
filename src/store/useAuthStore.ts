@@ -1,4 +1,6 @@
 import { create } from "zustand"
+import type { Session } from "@supabase/supabase-js";
+import { devtools } from "zustand/middleware";
 
 export interface InstructorData {
     id: string,
@@ -31,17 +33,19 @@ export interface AuthState {
 
 export interface AuthStore {
     user: AuthState | null,
-    setUser: (user: AuthState) => void
+    session: Session | null,
+    setUser: (user: AuthState | null) => void
+    setSession: (session: Session | null) => void
 }
 
-export const useAuthStore = create<AuthStore>()((set) => ({
-    // user: null,
-    user: {
-        id: "testemail@gmail.com",
-        name: "이름",
-        profileImageUrl: "ddd",
-        tags: ["aa", "bb"],
-        enrolledCourses: []
-    },
-    setUser: (user) => set({ user }),
-}))
+export const useAuthStore = create<AuthStore>()(
+    devtools(
+        (set) => ({
+            user: null,
+            session: null,
+            setUser: (user) => set({ user }),
+            setSession: (session) => set({ session })
+        }),
+        { name: "AuthStore" }
+    )
+)

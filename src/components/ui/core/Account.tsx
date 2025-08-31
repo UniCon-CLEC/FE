@@ -28,7 +28,9 @@ export const Account = ({ className }: { className?: string }) => {
             <motion.div className={`grow-1 text-(--subtext) text-right text-sm cursor-pointer ${className ? className : ""}`}
                 whileHover={{ color: "var(--main)" }}
                 transition={{ duration: 0.1 }}>
-                로그인/회원가입
+                <Link href={"/login"}>
+                    로그인/회원가입
+                </Link>
             </motion.div>
         )
     }

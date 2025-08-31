@@ -4,13 +4,12 @@ import { useState } from "react";
 import { ImgBox } from "../core/ImgBox";
 import Image from "next/image";
 import { motion, useAnimate } from "motion/react";
+import { Scrap } from "../core/Scrap";
 
 export type LectureInfo = { title: string, lecturer: string, description?: string }
 export type ExtendedLectureInfo = LectureInfo & Record<string, any>
 
 export const BaseItem = ({ lecturer, title, noScrap }: LectureInfo & { noScrap?: boolean }) => {
-    const [isScraped, setIsScraped] = useState(false)
-
     // fetch
 
     return (
@@ -23,8 +22,7 @@ export const BaseItem = ({ lecturer, title, noScrap }: LectureInfo & { noScrap?:
                 {title}
             </div>
             { !noScrap &&
-            <Image src={`/icons/heart_${isScraped ? "filled" : "empty"}.png`} alt="" width={22} height={22} className="absolute top-2 right-2 cursor-pointer"
-                onClick={() => setIsScraped(!isScraped)}></Image>
+                <Scrap size={6} className="absolute top-2 right-2"/>
             }
         </>
     )
@@ -54,14 +52,14 @@ export const BaseLargeItem = ({ lecture } : ItemProps) => {
     return (
         <>
             <div className="flex w-full">
-                <div className="w-[60%]">
+                <div className="w-[70%]">
                     <ImgBox className="shadow-md aspect-2/1"/>
                     <div className="mt-5 ml-2">
                         <div className="font-bold text-xl">{lecture.title}</div>
                         <div className="text-(--subtext) text-lg mt-1">{lecture.lecturer}</div>
                     </div>
                 </div>
-                <p className="text-(--subtext) mt-2 ml-8 whitespace-pre w-[40%]">
+                <p className="text-(--subtext) mt-2 ml-8 whitespace-pre w-[30%]">
                     {lecture.description}
                 </p>
             </div>
@@ -124,7 +122,7 @@ export const LargeItemList = ({ title, lectures, ItemComponent }: { title: strin
                 <div className="cursor-pointer">
                     <ItemComponent lecture={lectures[index]}/>
                 </div>
-                <div className="absolute bottom-3 right-[40%] mr-3 text-sm flex items-center">
+                <div className="absolute bottom-3 right-[30%] mr-3 text-sm flex items-center">
                     <div>
                         <Image src="/icons/left.png" onClick={prev} alt="left" width={14} height={14} className="cursor-pointer"/>
                     </div>
