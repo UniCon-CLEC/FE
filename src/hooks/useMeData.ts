@@ -5,7 +5,7 @@ import { request } from "@/lib/request";
 import { useQuery } from "@tanstack/react-query";
 
 const fetchMeData = async (): Promise<MeData> => {
-    const res = await request('me', "GET", true)
+    const res = await request('/me', "GET", true)
     if (!res.ok) throw new Error(`failed to fetch me`)
     return res.json()
 }

@@ -5,7 +5,7 @@ import { request } from "@/lib/request";
 import { useQuery } from "@tanstack/react-query";
 
 const fetchCourseData = async (type: CourseType): Promise<CourseData[]> => {
-    const res = await request(`courses/${type}`)
+    const res = await request(`/courses/${type}`)
     if (!res.ok) throw new Error(`failed to fetch course data (type: ${type})`)
     return res.json()
 }
