@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { BaseItem, BaseLargeItem, ItemProps } from "./BaseItem";
+import type { FundingCourseData } from "@/data/course"
 
 export const FundingItem = ({ course }: ItemProps) => {
     const data = course as FundingCourseData

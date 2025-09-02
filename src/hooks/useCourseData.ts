@@ -1,5 +1,6 @@
 "use client";
 
+import type { CourseData, CourseType } from "@/data/course";
 import { request } from "@/lib/request";
 import { useQuery } from "@tanstack/react-query";
 

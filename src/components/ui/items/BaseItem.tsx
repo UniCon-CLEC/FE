@@ -5,6 +5,7 @@ import { ImgBox } from "../core/ImgBox";
 import Image from "next/image";
 import { motion, useAnimate } from "motion/react";
 import { Scrap } from "../core/Scrap";
+import type { CourseData } from "@/data/course"
 
 export type ItemProps = { course: CourseData, className?: string, ref?: React.Ref<any> }
 

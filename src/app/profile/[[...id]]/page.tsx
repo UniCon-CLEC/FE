@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
+import { use, useContext, useEffect, useState } from "react";
 import { motion } from "motion/react";
 import Link from "next/link";
 import { ItemGridView } from "@/components/ui/items/BaseItem";
@@ -8,6 +8,7 @@ import { TrackSmallItem } from "@/components/ui/items/TrackItem";
 import { FundingSmallItem } from "@/components/ui/items/FundingItem";
 import { CrewSmallItem } from "@/components/ui/items/CrewItem";
 import Image from "next/image";
+import { ProfileContext } from "./ProfileContext";
 
 const NavItem = ({ text, selected, id }: { text: string, selected: boolean, id: string | undefined }) => {
     return (
@@ -43,13 +44,8 @@ const navData = [
     }
 ]
 
-const sampleLectures = Array.from({ length: 10 }, (v, i) => { 
-    return { title: '강의 제목' + i, lecturer: '강사명' + i }
-})
-
-export default function Profile({ params }: { params: Promise<{ id?: string[] }> }) {
-    const _params = use(params)
-    const id = _params.id?.at(0)
+export default function Profile() {
+    const id = useContext(ProfileContext)
     const [data, setData] = useState<any>(null)
 
     useEffect(() => {
@@ -84,7 +80,7 @@ export default function Profile({ params }: { params: Promise<{ id?: string[] }>
                                     </div>
                                 </div>
                             }
-                            <ItemGridView lectures={sampleLectures} ItemComponent={data.component} small/>
+                            <ItemGridView courses={[]} ItemComponent={data.component} small/>
                         </>
                     }
                 </div>

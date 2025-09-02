@@ -3,6 +3,7 @@ import { ItemProps } from "./BaseItem"
 import { useEffect, useRef, useState } from "react"
 import useListRef from "@/hooks/useListRef"
 import { AnimatePresence, motion } from "motion/react"
+import type { CourseData } from "@/data/course"
 
 type SliderViewProps = {
     courses: CourseData[]

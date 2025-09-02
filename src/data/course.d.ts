@@ -1,12 +1,12 @@
-type CourseType = 'track' | 'funding' | 'crew'
+export type CourseType = 'track' | 'funding' | 'crew'
 
-interface InstructorData {
+export interface InstructorData {
     id: string,
     name: string,
     image: string,
 }
 
-interface CourseData {
+export interface CourseData {
     courseId: string,
     title: string,
     instructor: InstructorData,
@@ -15,4 +15,10 @@ interface CourseData {
     coverImageUrl: string,
     description: string,
     tags: string[]
+}
+
+export interface FundingCourseData extends CourseData {
+    fundingTargetAmount: number,
+    totalFundedAmount: number,
+    achievementRate: number,
 }
