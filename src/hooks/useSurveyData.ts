@@ -2,7 +2,7 @@ import type { Survey } from "@/data/survey";
 import { request } from "@/lib/request";
 import { useQuery } from "@tanstack/react-query";
 
-export type SurveyType = 'TRACK_TOPIC' | 'CREW_TOPIC' | 'FUNDING_TOPIC';
+export type SurveyType = 'funding' | 'crew' | 'track';
 
 const fetchSurveyData = async (type: SurveyType): Promise<Survey[]> => {
     const res = await request(`/surveys/${type}-topic`);
