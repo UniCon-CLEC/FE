@@ -6,20 +6,19 @@ import Image from "next/image";
 import { motion, useAnimate } from "motion/react";
 import { Scrap } from "../core/Scrap";
 
-export type LectureInfo = { title: string, lecturer: string, description?: string }
-export type ExtendedLectureInfo = LectureInfo & Record<string, any>
+export type ItemProps = { course: CourseData, className?: string, ref?: React.Ref<any> }
 
-export const BaseItem = ({ lecturer, title, noScrap }: LectureInfo & { noScrap?: boolean }) => {
+export const BaseItem = ({ course, noScrap }: ItemProps & { noScrap?: boolean }) => {
     // fetch
 
     return (
         <>
-            <ImgBox className="aspect-square"/>
+            <ImgBox className="aspect-square" src={course.coverImageUrl}/>
             <div className="text-(--subtext) text-xs text-center mt-3">
-                {lecturer}
+                {course.instructor.name}
             </div>
             <div className="text-sm text-center font-bold mt-1">
-                {title}
+                {course.title}
             </div>
             { !noScrap &&
                 <Scrap size={6} className="absolute top-2 right-2"/>
@@ -28,13 +27,13 @@ export const BaseItem = ({ lecturer, title, noScrap }: LectureInfo & { noScrap?:
     )
 }
 
-export const ItemGridView = ({ lectures, ItemComponent, small }: { lectures: ExtendedLectureInfo[], ItemComponent: React.ComponentType<ItemProps>, small?: boolean }) => {
+export const ItemGridView = ({ courses, ItemComponent, small }: { courses: CourseData[], ItemComponent: React.ComponentType<ItemProps>, small?: boolean }) => {
     const makeItems = () => {
-        return lectures.map((info, index) => {
+        return courses.map((course, index) => {
             return (
                 <motion.div key={index} className="cursor-pointer"
                     whileHover={{ scale: 1.1 }}>
-                    <ItemComponent lecture={info}/>
+                    <ItemComponent course={course}/>
                 </motion.div>
             )
         })
@@ -47,20 +46,19 @@ export const ItemGridView = ({ lectures, ItemComponent, small }: { lectures: Ext
     )
 }
 
-export type ItemProps = { lecture: ExtendedLectureInfo, className?: string, ref?: React.Ref<any> }
-export const BaseLargeItem = ({ lecture } : ItemProps) => {
+export const BaseLargeItem = ({ course } : ItemProps) => {
     return (
         <>
             <div className="flex w-full">
                 <div className="w-[70%]">
-                    <ImgBox className="shadow-md aspect-2/1"/>
+                    <ImgBox className="shadow-md aspect-2/1" src={course.coverImageUrl}/>
                     <div className="mt-5 ml-2">
-                        <div className="font-bold text-xl">{lecture.title}</div>
-                        <div className="text-(--subtext) text-lg mt-1">{lecture.lecturer}</div>
+                        <div className="font-bold text-xl">{course.title}</div>
+                        <div className="text-(--subtext) text-lg mt-1">{course.instructor.name}</div>
                     </div>
                 </div>
-                <p className="text-(--subtext) mt-2 ml-8 whitespace-pre w-[30%]">
-                    {lecture.description}
+                <p className="text-(--subtext) mt-2 ml-8 whitespace-pre-wrap w-[30%]">
+                    {course.description}
                 </p>
             </div>
         </>
@@ -68,7 +66,7 @@ export const BaseLargeItem = ({ lecture } : ItemProps) => {
 }
 
 const transitionDuration = 0.25
-export const LargeItemList = ({ title, lectures, ItemComponent }: { title: string, lectures: ExtendedLectureInfo[], ItemComponent: React.ComponentType<ItemProps> }) => {
+export const LargeItemList = ({ title, courses, ItemComponent }: { title: string, courses: CourseData[], ItemComponent: React.ComponentType<ItemProps> }) => {
     const [index, setIndex] = useState(0);
     const [scope, animate] = useAnimate()
 
@@ -80,7 +78,7 @@ export const LargeItemList = ({ title, lectures, ItemComponent }: { title: strin
             duration: transitionDuration,
             ease: "circIn"
         }).then(() => {
-            setIndex((prevIndex) => (prevIndex + 1) % lectures.length)
+            setIndex((prevIndex) => (prevIndex + 1) % courses.length)
             return animate(scope.current, {
                 opacity: 1,
                 y: 0
@@ -99,7 +97,7 @@ export const LargeItemList = ({ title, lectures, ItemComponent }: { title: strin
             duration: transitionDuration,
             ease: "circIn"
         }).then(() => {
-            setIndex((prevIndex) => (prevIndex - 1 + lectures.length) % lectures.length)
+            setIndex((prevIndex) => (prevIndex - 1 + courses.length) % courses.length)
             return animate(scope.current, {
                 opacity: 1,
                 y: 0
@@ -120,7 +118,7 @@ export const LargeItemList = ({ title, lectures, ItemComponent }: { title: strin
             </div>
             <div className="relative" ref={scope}>
                 <div className="cursor-pointer">
-                    <ItemComponent lecture={lectures[index]}/>
+                    <ItemComponent course={courses[index]}/>
                 </div>
                 <div className="absolute bottom-3 right-[30%] mr-3 text-sm flex items-center">
                     <div>
@@ -131,7 +129,7 @@ export const LargeItemList = ({ title, lectures, ItemComponent }: { title: strin
                             {index + 1}
                         </span>
                         <span className="pr-1">
-                            / {lectures.length}
+                            / {courses.length}
                         </span>
                     </div>
                     <div>

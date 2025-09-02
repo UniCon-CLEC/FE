@@ -2,11 +2,14 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { SupabaseListener } from "@/components/SupabaseListener";
+import { Providers } from "@/components/Providers";
 
 export const metadata: Metadata = {
     title: "C:LEC",
     description: "",
 };
+
+
 
 export default function RootLayout({
     children,
@@ -18,9 +21,11 @@ export default function RootLayout({
             <body
               className="antialiased"
             >
-                <SupabaseListener/>
-                <Header/>
-                {children}
+                <Providers>
+                    <SupabaseListener/>
+                    <Header/>
+                    {children}
+                </Providers>
             </body>
         </html>
     );

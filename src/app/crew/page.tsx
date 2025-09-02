@@ -7,6 +7,7 @@ import { NavSection } from "@/components/ui/core/Section";
 import { LargeItemList } from "@/components/ui/items/BaseItem";
 import { SliderView } from "@/components/ui/items/SliderView";
 import { TrackItem, TrackLargeItem } from "@/components/ui/items/TrackItem";
+import { useCourseData } from "@/hooks/useCourseData";
 import { useState } from "react";
 
 const navData = [
@@ -22,26 +23,28 @@ const navData = [
     }
 ]
 
-const sampleLectures = Array.from({ length: 10 }, (v, i) => { 
-    return { title: '강의 제목' + i, lecturer: '강사명' + i }
-})
-
 export default function Crew() {
     const [activeSection, setActiveSection] = useState<string>("")
+
+    const { data, isLoading, error } = useCourseData('crew')
 
     return (
         <>
             <main className="w-(--page-width) mx-auto">
-                <LargeItemList title="인기 크루" ItemComponent={TrackLargeItem} lectures={[{title:'예시 제목', lecturer:'클렉 스튜디오',description:'원하는 어떤거 그리고 다른것에 대해 배웁니다.\n이론 수업부터 실전 프로젝트까지!'},{title:'제목2', lecturer:'22',description:'test2'}]}></LargeItemList>
-                <NavSection data={navData[0]} set={setActiveSection}>
-                    <SliderView lectures={sampleLectures} ItemComponent={TrackItem}/>
-                </NavSection>
-                <NavSection data={navData[1]} set={setActiveSection}>
-                    <SliderView lectures={sampleLectures} ItemComponent={TrackItem}/>
-                </NavSection>
-                <NavSection data={navData[2]} set={setActiveSection}>
-                    <SliderView lectures={sampleLectures} ItemComponent={TrackItem}/>
-                </NavSection>
+                { data && 
+                    <>
+                        <LargeItemList title="인기 크루" ItemComponent={TrackLargeItem} courses={data}></LargeItemList>
+                        <NavSection data={navData[0]} set={setActiveSection}>
+                            <SliderView courses={data} ItemComponent={TrackItem}/>
+                        </NavSection>
+                        <NavSection data={navData[1]} set={setActiveSection}>
+                            <SliderView courses={data} ItemComponent={TrackItem}/>
+                        </NavSection>
+                        <NavSection data={navData[2]} set={setActiveSection}>
+                            <SliderView courses={data} ItemComponent={TrackItem}/>
+                        </NavSection>
+                    </>
+                }
                 <RequestNotice keyword="크루"/>
             </main>
             <Navigation navTargets={navData} activeTargetId={activeSection}/>

@@ -2,14 +2,12 @@
 
 import { SliderView } from "@/components/ui/items/SliderView";
 import { TrackItem } from "@/components/ui/items/TrackItem";
+import { useCourseData } from "@/hooks/useCourseData";
 import React from "react";
 
-const sampleLectures = Array.from({ length: 10 }, (v, i) => { 
-    return { title: '강의 제목' + i, lecturer: '강사명' + i }
-})
-
-
 const Banner = (props: { title: string }) => {
+    const { data, isLoading, error } = useCourseData('track')
+
     return (
         <div className="relative mb-35">
             <div className="flex gap-1 items-center w-fit mx-auto -translate-x-4">
@@ -17,7 +15,9 @@ const Banner = (props: { title: string }) => {
                 <span className="font-bold text-3xl">{props.title}</span>
             </div>
             <p className="text-(--subtext) w-fit mx-auto text-sm mt-3 mb-10">Lorem ipsum dolor sit amet, consectetur adipiscing elit, </p>
-            <SliderView lectures={sampleLectures} ItemComponent={TrackItem}/>
+            { data &&
+                <SliderView courses={data} ItemComponent={TrackItem}/>
+            }
         </div>
     )
 }

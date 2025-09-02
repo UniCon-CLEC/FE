@@ -1,14 +1,14 @@
 import Image from "next/image"
-import { ExtendedLectureInfo, ItemProps } from "./BaseItem"
+import { ItemProps } from "./BaseItem"
 import { useEffect, useRef, useState } from "react"
 import useListRef from "@/hooks/useListRef"
 import { AnimatePresence, motion } from "motion/react"
 
 type SliderViewProps = {
-    lectures: ExtendedLectureInfo[]
+    courses: CourseData[]
     ItemComponent: React.ComponentType<ItemProps>
 }
-export const SliderView = ({ lectures, ItemComponent }: SliderViewProps) => {
+export const SliderView = ({ courses, ItemComponent }: SliderViewProps) => {
     const observerRef = useRef<IntersectionObserver>(null)
     const scopeRef = useRef<HTMLDivElement | null>(null)
     const [targetRefs, getTargetRef] = useListRef<HTMLElement>()
@@ -20,12 +20,12 @@ export const SliderView = ({ lectures, ItemComponent }: SliderViewProps) => {
     const obsMap = useRef(new Map<Element, boolean>())
     
     const makeItems = () => {
-        return lectures.map((lecture, index) => {
+        return courses.map((course, index) => {
             return (
                 <motion.div className="cursor-pointer mt-5" key={index}
                     whileHover={{ y: -10 }}
                     transition={{ duration: 0.1 }}>
-                    <ItemComponent lecture={lecture} className="min-w-50" ref={getTargetRef(index)}/>
+                    <ItemComponent course={course} className="min-w-50" ref={getTargetRef(index)}/>
                 </motion.div>
             )
         })
@@ -48,8 +48,6 @@ export const SliderView = ({ lectures, ItemComponent }: SliderViewProps) => {
             if (newNext) setNext(newNext)
             const newPrev = (states.findLast((v, i) => i < firstVisibleIdx && !v.visible) ?? states.at(0))?.element
             if (newPrev) setPrev(newPrev)
-
-            entries.forEach((entry) => console.log(entry.target, entry.intersectionRatio))
         }, {
             root: scopeRef.current,
             threshold: [0, 0.5, 0.95, 1]
