@@ -4,6 +4,7 @@ import { Navigation } from "@/components/layout/Navigation";
 import { NavSection } from "@/components/ui/core/Section";
 import { ItemGridView, LargeItemList } from "@/components/ui/items/BaseItem";
 import { FundingItem, FundingLargeItem } from "@/components/ui/items/FundingItem";
+import { Survey } from "@/components/layout/Survey";
 import { useCourseData } from "@/hooks/useCourseData";
 import { useState } from "react";
 
@@ -33,7 +34,7 @@ export default function Funding() {
                             <ItemGridView courses={data} ItemComponent={FundingItem}/>
                         </NavSection>
                         <NavSection data={navData[1]} set={setActiveSection}>
-
+                            <Survey type="funding" />
                         </NavSection>
                     </>
                 }
