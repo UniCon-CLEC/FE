@@ -19,7 +19,7 @@ export const ProfileArea = () => {
                     {data.name}님, 안녕하세요!
                 </div>
                 <div className="w-fit">
-                    <ImgBox className="aspect-square w-22 h-22"/>
+                    <ImgBox className="aspect-square w-22 h-22" src={data.profileImageUrl ?? undefined}/>
                 </div>
                 <div className="text-lg w-fit font-bold mt-3">
                     {data.name}
