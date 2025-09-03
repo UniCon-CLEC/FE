@@ -88,11 +88,19 @@ export const SurveySlider = ({ surveys, onDelete, onLike }: SurveySliderProps) =
                         exit={{ opacity: 0, scale: 0.5 }}
                         transition={{ duration: 0.2 }}
                         onClick={() => {
-                            if (prev)
-                                scopeRef.current?.scrollBy({
-                                    left: -scopeRef.current.clientWidth,
-                                    behavior: "smooth"
-                                })
+                            if(scopeRef.current){
+                                if (scopeRef.current.scrollLeft <= scopeRef.current.clientWidth) {
+                                    scopeRef.current.scrollTo({
+                                        left: 0,
+                                        behavior: "smooth"
+                                    });
+                                } else {
+                                    scopeRef.current.scrollBy({
+                                        left: -scopeRef.current.clientWidth,
+                                        behavior: "smooth"
+                                    });
+                                }
+                            }
                         }}>
                         <Image src={"/icons/left.png"} width={20} height={20} alt="이전"/>
                     </motion.button>
@@ -110,10 +118,23 @@ export const SurveySlider = ({ surveys, onDelete, onLike }: SurveySliderProps) =
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.5 }}
                         transition={{ duration: 0.2 }}
-                        onClick={() => scopeRef.current?.scrollBy({
-                            left: scopeRef.current.clientWidth,
-                            behavior: "smooth"
-                        })}>
+                        onClick={() => {
+                            if(scopeRef.current){
+                                const { scrollWidth, clientWidth, scrollLeft } = scopeRef.current;
+                                const maxScrollLeft = scrollWidth - clientWidth;
+                                if (scrollLeft >= maxScrollLeft - clientWidth) {
+                                     scopeRef.current.scrollTo({
+                                        left: scrollWidth,
+                                        behavior: "smooth"
+                                    });
+                                } else {
+                                    scopeRef.current.scrollBy({
+                                        left: clientWidth,
+                                        behavior: "smooth"
+                                    });
+                                }
+                            }
+                        }}>
                         <Image src={"/icons/right.png"} width={20} height={20} alt="다음"/>
                     </motion.button>
                 }
