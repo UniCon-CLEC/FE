@@ -15,14 +15,14 @@ export function Survey({ type }: SurveyProps) {
     const queryClient = useQueryClient();
 
     const recommendMutation = useMutation({
-        mutationFn: (id: string) => request(`/surveys/${id}/recommend`, { method: 'PATCH' }),
+        mutationFn: (id: string) => request(`/surveys/${id}/recommend`, { method: 'PATCH' }, true),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['survey', { type }] });
         },
     });
 
     const deleteMutation = useMutation({
-        mutationFn: (id: string) => request(`/surveys/${id}`, { method: 'DELETE' }),
+        mutationFn: (id: string) => request(`/surveys/${id}`, { method: 'DELETE' }, true),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['survey', { type }] });
         },
